@@ -1,14 +1,9 @@
-import React, { useContext, useState } from "react";
-import Li from "./Li";
+import React, { useContext } from "react";
 import DataContext from "../DataContext";
+import Li from "./Li";
 
 const CartPage = () => {
-  const data = useContext(DataContext);
-  const [total, setTotal] = useState(0);
-
-  const updateTotal = (priceChange) => {
-    setTotal((prevTotal) => prevTotal + priceChange);
-  };
+  const { data, total } = useContext(DataContext);
 
   return (
     <section className="h-screen bg-gray-100 py-12 sm:py-16 lg:py-20">
@@ -22,19 +17,17 @@ const CartPage = () => {
             <div className="px-4 py-6 sm:px-8 sm:py-10">
               <div className="flow-root">
                 <ul className="-my-8">
-                  {data.map((item) => {
-                    return (
-                      <Li key={item.id} item={item} updateTotal={updateTotal} />
-                    );
-                  })}
+                  {data.map((item, index) => (
+                    <Li key={item.id} item={item} index={index} />
+                  ))}
                 </ul>
               </div>
 
               <div className="mt-6 border-t border-b py-2">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-gray-400">{data[1].title}</p>
+                  <p className="text-sm text-gray-400">Subtotal</p>
                   <p className="text-lg font-semibold text-gray-900">
-                    ${"total"}
+                    ${total.toFixed(2)}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
@@ -64,11 +57,7 @@ const CartPage = () => {
                     stroke="currentColor"
                     strokeWidth="2"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
+                    <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </button>
               </div>

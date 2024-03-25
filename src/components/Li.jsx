@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import DataContext from "../DataContext";
 
-const Li = ({ item, updateTotal }) => {
-  const [quantity, setQuantity] = useState(0);
+const Li = ({ item, index }) => {
+  const { quantities, increaseQuantity, decreaseQuantity } =
+    useContext(DataContext);
 
-  const increaseQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-    updateTotal(item.price);
+  const handleIncrease = () => {
+    increaseQuantity(index);
   };
 
-  const decreaseQuantity = () => {
-    if (quantity > 0) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-      updateTotal(-item.price);
-    }
+  const handleDecrease = () => {
+    decreaseQuantity(index);
   };
 
-  const total = (item.price * quantity).toFixed(2);
   return (
     <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
       <div className="shrink-0">
@@ -53,53 +50,37 @@ const Li = ({ item, updateTotal }) => {
           </div>
 
           <div className="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-            <p className="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
+            <div className="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
               ${item.price}
-            </p>
+              <p className="mx-0 mt-1 mb-0 text-sm text-gray-400">
+                {item.discountPercentage}% Off
+              </p>
+            </div>
 
             <div className="sm:order-1">
               <div className="mx-auto flex h-8 items-stretch text-gray-600">
                 <button
-                  onClick={decreaseQuantity}
+                  onClick={handleDecrease}
                   className="flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white"
                 >
                   -
                 </button>
                 <div className="flex w-full items-center justify-center bg-gray-100 px-4 text-xs uppercase transition">
-                  {quantity}
+                  {quantities[index]}
                 </div>
                 <button
-                  onClick={increaseQuantity}
+                  onClick={handleIncrease}
                   className="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white"
                 >
                   +
                 </button>
               </div>
+              ({item.stock}) In stock
             </div>
           </div>
         </div>
 
-        <div className="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
-          <button
-            type="button"
-            className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
-          >
-            <svg
-              className="h-5 w-5"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </button>
-        </div>
+        <div className="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto"></div>
       </div>
     </li>
   );
