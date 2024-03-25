@@ -53,7 +53,7 @@ const Li = ({ item, index }) => {
             <div className="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
               ${item.price}
               <p className="mx-0 mt-1 mb-0 text-sm text-gray-400">
-                {item.discountPercentage}% Off
+                {item.discountPercentage}% Off applied
               </p>
             </div>
 
