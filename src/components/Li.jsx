@@ -6,7 +6,9 @@ const Li = ({ item, index }) => {
     useContext(DataContext);
 
   const handleIncrease = () => {
-    increaseQuantity(index);
+    if (quantities[index] < item.stock) {
+      increaseQuantity(index);
+    }
   };
 
   const handleDecrease = () => {
@@ -70,9 +72,10 @@ const Li = ({ item, index }) => {
                 </div>
                 <button
                   onClick={handleIncrease}
+                  disabled={quantities[index] >= item.stock}
                   className="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white"
                 >
-                  +
+                  {quantities[index] >= item.stock ? "" : "+"}
                 </button>
               </div>
               ({item.stock}) In stock
