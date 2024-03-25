@@ -3,7 +3,7 @@ import DataContext from "../DataContext";
 import Li from "./Li";
 
 const CartPage = () => {
-  const { data, total } = useContext(DataContext);
+  const { products, total } = useContext(DataContext);
 
   return (
     <section className="h-screen bg-gray-100 py-12 sm:py-16 lg:py-20">
@@ -17,7 +17,7 @@ const CartPage = () => {
             <div className="px-4 py-6 sm:px-8 sm:py-10">
               <div className="flow-root">
                 <ul className="-my-8">
-                  {data.map((item, index) => (
+                  {products.map((item, index) => (
                     <Li key={item.id} item={item} index={index} />
                   ))}
                 </ul>

@@ -4,10 +4,9 @@ const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const { products } = productsData;
-  const [data, setData] = useState(products);
 
-  const [quantities, setQuantities] = useState(data.map(() => 0));
-
+  const [quantities, setQuantities] = useState(products.map(() => 0));
+  // function to increase individual item quantity
   const increaseQuantity = (index) => {
     setQuantities((prevQuantities) => {
       const newQuantities = [...prevQuantities];
@@ -15,7 +14,7 @@ export const DataProvider = ({ children }) => {
       return newQuantities;
     });
   };
-
+  // function to decrease individual item quantity
   const decreaseQuantity = (index) => {
     setQuantities((prevQuantities) => {
       const newQuantities = [...prevQuantities];
@@ -28,17 +27,18 @@ export const DataProvider = ({ children }) => {
 
   const [total, setTotal] = useState(0);
 
+  // function to calculate total price
   useEffect(() => {
-    const newTotal = data.reduce((acc, item, index) => {
+    const newTotal = products.reduce((acc, item, index) => {
       return acc + item.price * quantities[index];
     }, 0);
     setTotal(newTotal);
-  }, [data, quantities]);
+  }, [products, quantities]);
 
   return (
     <DataContext.Provider
       value={{
-        data,
+        products,
         quantities,
         increaseQuantity,
         decreaseQuantity,
