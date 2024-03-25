@@ -1,12 +1,13 @@
-import { useState } from "react";
-import data from "./assets/product.json";
+import React from "react";
+import "./App.css";
+import CartPage from "./components/CartPage";
+import { DataProvider } from "./DataContext";
+
 function App() {
   return (
-    <>
-      {data.map(() => {
-        return <div>{data.products[0].id}</div>;
-      })}
-    </>
+    <DataProvider>
+      <CartPage />
+    </DataProvider>
   );
 }
 
