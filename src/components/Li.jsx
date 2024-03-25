@@ -5,12 +5,15 @@ const Li = ({ item, index }) => {
   const { quantities, increaseQuantity, decreaseQuantity } =
     useContext(DataContext);
 
+  // calling quantity increase for each item
+
   const handleIncrease = () => {
     if (quantities[index] < item.stock) {
+      //checking if added quantity is greater than stock
       increaseQuantity(index);
     }
   };
-
+  // calling quantity decrease for each item
   const handleDecrease = () => {
     decreaseQuantity(index);
   };
@@ -59,7 +62,7 @@ const Li = ({ item, index }) => {
               </p>
             </div>
 
-            <div className="sm:order-1">
+            <div className="sm:order-1 text-center ">
               <div className="mx-auto flex h-8 items-stretch text-gray-600">
                 <button
                   onClick={handleDecrease}
@@ -76,6 +79,7 @@ const Li = ({ item, index }) => {
                   className="flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white"
                 >
                   {quantities[index] >= item.stock ? "" : "+"}
+                  {/* disabiiling button if customer adds quantity more than stock */}
                 </button>
               </div>
               ({item.stock}) In stock

@@ -17,6 +17,7 @@ const CartPage = () => {
             <div className="px-4 py-6 sm:px-8 sm:py-10">
               <div className="flow-root">
                 <ul className="-my-8">
+                  {/* Mapping each items as a list component */}
                   {products.map((item, index) => (
                     <Li key={item.id} item={item} index={index} />
                   ))}

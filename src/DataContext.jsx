@@ -3,6 +3,7 @@ import productsData from "./assets/product.json";
 const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
+  //imported products data from external json files
   const { products } = productsData;
 
   const [quantities, setQuantities] = useState(products.map(() => 0));
